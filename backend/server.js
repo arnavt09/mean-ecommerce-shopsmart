@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const healthRoutes = require("./routes/healthRoutes");
 const productRoutes = require("./routes/productRoutes");
-
+const cartRoutes = require('./routes/cartRoutes');
 const authRoutes = require('./routes/authRoutes.js');
 dotenv.config();
 
@@ -15,6 +15,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use('/api/cart', cartRoutes);
 app.use('/api/health', healthRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/auth', authRoutes);
