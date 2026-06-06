@@ -6,6 +6,8 @@ const healthRoutes = require("./routes/healthRoutes");
 const productRoutes = require("./routes/productRoutes");
 const cartRoutes = require('./routes/cartRoutes');
 const authRoutes = require('./routes/authRoutes.js');
+const orderRoutes = require('./routes/order');
+
 dotenv.config();
 
 connectDB();
@@ -19,6 +21,7 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/health', healthRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/orders', orderRoutes);
 
 const PORT = process.env.PORT || 5000;
 
