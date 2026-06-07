@@ -6,7 +6,7 @@ const healthRoutes = require("./routes/healthRoutes");
 const productRoutes = require("./routes/productRoutes");
 const cartRoutes = require('./routes/cartRoutes');
 const authRoutes = require('./routes/authRoutes.js');
-const orderRoutes = require('./routes/order');
+const orderRoutes = require('./routes/orderRoutes');
 
 dotenv.config();
 
