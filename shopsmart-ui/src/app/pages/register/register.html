@@ -1,1 +1,11 @@
-<p>Register Page</p>
+<div class="form-page">
+  <h1>Register</h1>
+  <p class="message">{{ message }}</p>
+  <form (ngSubmit)="register()">
+    <label>Name</label>
+    <input type="text" name="name" [(ngModel)]="name" required />
+    <label>Password</label>
+    <input type="password" name="password" [(ngModel)]="password" required />
+    <button type="submit">Register</button>
+  </form>
+</div>

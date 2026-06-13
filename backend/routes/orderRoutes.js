@@ -1,9 +1,6 @@
 const express = require('express');
 
-const {
-  checkout,
-  getUserOrders
-} = require('../controllers/orderController');
+const { checkout, getUserOrders } = require('../controllers/orderController');
 
 const router = express.Router();
 

@@ -3,10 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
-
   private apiUrl = 'http://localhost:5000/api/cart';
 
   constructor(private http: HttpClient) {}
@@ -19,7 +18,7 @@ export class CartService {
     return this.http.post(`${this.apiUrl}/add`, {
       userId,
       productId,
-      quantity
+      quantity,
     });
   }
 
@@ -27,7 +26,7 @@ export class CartService {
     return this.http.put(`${this.apiUrl}/update`, {
       userId,
       productId,
-      quantity
+      quantity,
     });
   }
 
@@ -35,8 +34,8 @@ export class CartService {
     return this.http.delete(`${this.apiUrl}/remove`, {
       body: {
         userId,
-        productId
-      }
+        productId,
+      },
     });
   }
 }

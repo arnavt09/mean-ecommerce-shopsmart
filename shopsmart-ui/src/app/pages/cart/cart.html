@@ -1,1 +1,22 @@
-<p>Cart Page</p>
+<div class="page">
+  <h1>Cart</h1>
+  <p class="message">{{ message }}</p>
+  <div *ngIf="cart && cart.items.length === 0">
+    <p>Your cart is empty.</p>
+  </div>
+  <div class="cart-item" *ngFor="let item of cart?.items">
+    <div>
+      <h3>{{ item.product.name }}</h3>
+      <p>Price: ${{ item.product.price }}</p>
+      <p>Quantity: {{ item.quantity }}</p>
+      <p>Subtotal: ${{ item.product.price * item.quantity }}</p>
+    </div>
+    <div class="buttons">
+      <button (click)="decrease(item.product._id, item.quantity)">-</button>
+      <button (click)="increase(item.product._id, item.quantity)">+</button>
+      <button (click)="remove(item.product._id)">Remove</button>
+    </div>
+  </div>
+  <h2>Total:${{ total }}</h2>
+  <a class="checkout-link" routerLink="/orders">Go to Orders</a>
+</div>

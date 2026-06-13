@@ -4,47 +4,47 @@ const orderItemSchema = new mongoose.Schema({
   product: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Product',
-    required: true
+    required: true,
   },
 
   quantity: {
     type: Number,
     required: true,
-    min: 1
+    min: 1,
   },
 
   price: {
     type: Number,
     required: true,
-    min: 0
-  }
+    min: 0,
+  },
 });
 
 const orderSchema = new mongoose.Schema(
-    {
-        user: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'User',
-          required: true
-        },
-
-        items: [orderItemSchema],
-
-        totalAmount: {
-            type: Number,
-            required: true,
-            min: 0
-        },
-
-        status: {
-            type: String,
-            enum: ['Pending', 'Shipped', 'Delivered', 'Cancelled'],
-            default: 'Pending'
-        }
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
     },
-    {
-        timestamps: true
-    }
+
+    items: [orderItemSchema],
+
+    totalAmount: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+
+    status: {
+      type: String,
+      enum: ['Pending', 'Shipped', 'Delivered', 'Cancelled'],
+      default: 'Pending',
+    },
+  },
+  {
+    timestamps: true,
+  },
 );
 
 const Order = mongoose.model('Order', orderSchema);

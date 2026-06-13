@@ -1,6 +1,6 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
 const generateToken = (userId, role) => {
   return jwt.sign(
@@ -10,7 +10,7 @@ const generateToken = (userId, role) => {
     },
     process.env.JWT_SECRET,
     {
-      expiresIn: process.env.JWT_EXPIRES_IN || "1d",
+      expiresIn: process.env.JWT_EXPIRES_IN || '1d',
     },
   );
 };
@@ -22,14 +22,14 @@ const registerUser = async (req, res) => {
     if (!name || !email || !password) {
       return res.status(400).json({
         success: false,
-        message: "Name, email, and password are required",
+        message: 'Name, email, and password are required',
       });
     }
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
       return res.status(400).json({
         success: false,
-        message: "User already exists with this email",
+        message: 'User already exists with this email',
       });
     }
     const salt = await bcrypt.genSalt(10);
@@ -38,12 +38,12 @@ const registerUser = async (req, res) => {
       name: name,
       email: email,
       password: hashedPassword,
-      role: role || "customer",
+      role: role || 'customer',
     });
     const token = generateToken(user._id, user.role);
     res.status(201).json({
       success: true,
-      message: "User registered successfully",
+      message: 'User registered successfully',
       token: token,
       data: {
         id: user._id,
@@ -55,7 +55,7 @@ const registerUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Registration failed",
+      message: 'Registration failed',
       error: error.message,
     });
   }
@@ -67,27 +67,27 @@ const loginUser = async (req, res) => {
     if (!email || !password) {
       return res.status(400).json({
         success: false,
-        message: "Email and pasword are required",
+        message: 'Email and pasword are required',
       });
     }
     const user = await User.findOne({ email: email });
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: "Invalid email or password",
+        message: 'Invalid email or password',
       });
     }
     const isPasswordMatch = await bcrypt.compare(password, user.password);
     if (!isPasswordMatch) {
       return res.status(401).json({
         success: false,
-        message: "Invalid email or password",
+        message: 'Invalid email or password',
       });
     }
     const token = generateToken(user._id, user.role);
     res.status(200).json({
       success: true,
-      message: "Login successful",
+      message: 'Login successful',
       token: token,
       data: {
         id: user._id,
@@ -99,7 +99,7 @@ const loginUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Login failed",
+      message: 'Login failed',
       error: error.message,
     });
   }
