@@ -1,31 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Order as OrderModel } from '../../models/order';
-import { OrderService as OrderService } from '../../services/order';
+import { Order } from '../../models/order';
+import { OrderService } from '../../services/order';
 import { AuthService } from '../../services/auth';
+
 @Component({
   selector: 'app-orders',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './orders.html',
   styleUrl: './orders.css',
 })
 export class OrdersPage implements OnInit {
-  orders: OrderModel[] = [];
+  orders: Order[] = [];
   message = '';
+
   constructor(
     private orderService: OrderService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
+
   ngOnInit(): void {
     this.loadOrders();
   }
+
   checkout(): void {
     const user = this.authService.getUser();
+
     if (!user) {
       this.message = 'Please login first';
       return;
     }
-    this.orderService.checkout(user.id).subscribe({
+
+    const userId = user._id || user.id;
+
+    this.orderService.checkout(userId).subscribe({
       next: () => {
         this.message = 'Order placed successfully';
         this.loadOrders();
@@ -35,15 +44,20 @@ export class OrdersPage implements OnInit {
       },
     });
   }
+
   loadOrders(): void {
     const user = this.authService.getUser();
+
     if (!user) {
       this.message = 'Please login first';
       return;
     }
-    this.orderService.getUserOrders(user.id).subscribe({
-      next: (res) => {
-        this.orders = res.data;
+
+    const userId = user._id || user.id;
+
+    this.orderService.getUserOrders(userId).subscribe({
+      next: (res: any) => {
+        this.orders = Array.isArray(res) ? res : res.data;
       },
       error: () => {
         this.message = 'Failed to load orders';
