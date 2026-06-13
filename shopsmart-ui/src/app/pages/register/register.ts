@@ -3,8 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth';
+
 @Component({
   selector: 'app-register',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './register.html',
   styleUrl: './register.css',
@@ -14,10 +16,12 @@ export class Register {
   email = '';
   password = '';
   message = '';
+
   constructor(
     private authService: AuthService,
-    private router: Router,
+    private router: Router
   ) {}
+
   register(): void {
     this.authService
       .register({
@@ -26,13 +30,21 @@ export class Register {
         password: this.password,
       })
       .subscribe({
-        next: (_res: any) => {
-          this.authService.saveUser(_res.data);
+        next: (res: any) => {
+          this.authService.saveUser(res);
+
           this.message = 'Registration successful';
-          this.router.navigate(['/products']);
+
+          setTimeout(() => {
+            this.router.navigate(['/products']);
+          }, 1000);
         },
-        error: () => {
-          this.message = 'Register failed';
+        error: (err) => {
+          console.error(err);
+
+          this.message =
+            err?.error?.message ||
+            'Registration failed';
         },
       });
   }

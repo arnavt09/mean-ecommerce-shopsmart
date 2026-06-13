@@ -18,10 +18,12 @@ export class Login {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
+    private router: Router
   ) {}
 
   login(): void {
+    this.message = '';
+
     this.authService
       .login({
         email: this.email,
@@ -29,12 +31,20 @@ export class Login {
       })
       .subscribe({
         next: (res: any) => {
-          this.authService.saveUser(res.data);
+          this.authService.saveUser(res);
+
           this.message = 'Login successful';
-          this.router.navigate(['/products']);
+
+          setTimeout(() => {
+            this.router.navigate(['/products']);
+          }, 1000);
         },
-        error: () => {
-          this.message = 'Invalid email or password';
+        error: (err) => {
+          console.error(err);
+
+          this.message =
+            err?.error?.message ||
+            'Invalid email or password';
         },
       });
   }
