@@ -12,10 +12,10 @@ import { AuthService } from '../../services/auth';
 })
 export class OrdersPage implements OnInit {
   orders: any[] = [];
-  message = "";
-constructor(
+  message = '';
+  constructor(
     private orderService: OrderService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {

@@ -11,9 +11,11 @@
   </div>
   <div class="order-card" *ngFor="let order of orders">
     <h3>Order ID: {{ order._id }}</h3>
-    <p><strong>Status:{{ order.status }}</strong>
+    <p>
+      <strong>Status:{{ order.status }}</strong>
+    </p>
     <p>Total: ${{ order.totalAmount }}</p>
-    <p>Date: {{ order.createdAt | date: 'short' }}</p>  
+    <p>Date: {{ order.createdAt | date: 'short' }}</p>
     <h4>Items</h4>
     <div class="order-item" *ngFor="let item of order.items">
       <p>{{ item.product.name }}</p>

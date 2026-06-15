@@ -10,18 +10,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  register(user: {
-    name: string;
-    email: string;
-    password: string;
-  }): Observable<any> {
+  register(user: { name: string; email: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, user);
   }
 
-  login(credentials: {
-    email: string;
-    password: string;
-  }): Observable<any> {
+  login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials);
   }
 
@@ -31,10 +24,7 @@ export class AuthService {
     }
 
     if (response.data) {
-      localStorage.setItem(
-        'user',
-        JSON.stringify(response.data)
-      );
+      localStorage.setItem('user', JSON.stringify(response.data));
     }
   }
 

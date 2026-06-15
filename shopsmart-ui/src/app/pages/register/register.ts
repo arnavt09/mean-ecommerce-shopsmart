@@ -19,7 +19,7 @@ export class Register {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   register(): void {
@@ -42,9 +42,7 @@ export class Register {
         error: (err) => {
           console.error(err);
 
-          this.message =
-            err?.error?.message ||
-            'Registration failed';
+          this.message = err?.error?.message || 'Registration failed';
         },
       });
   }

@@ -15,9 +15,9 @@ export class Login {
   email = '';
   password = '';
   message = '';
-constructor(
+  constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   login(): void {
@@ -41,9 +41,7 @@ constructor(
         error: (err) => {
           console.error(err);
 
-          this.message =
-            err?.error?.message ||
-            'Invalid email or password';
+          this.message = err?.error?.message || 'Invalid email or password';
         },
       });
   }
