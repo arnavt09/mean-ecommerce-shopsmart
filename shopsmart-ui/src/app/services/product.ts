@@ -11,11 +11,11 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl);
+  getProducts(): Observable<{ success: boolean; count: number; data: Product[] }> {
+    return this.http.get<{ success: boolean; count: number; data: Product[] }>(this.apiUrl);
   }
 
-  getProductById(id: string): Observable<Product> {
-    return this.http.get<Product>(`${this.apiUrl}/${id}`);
+  getProductById(id: string): Observable<{ success: boolean; data: Product }> {
+    return this.http.get<{ success: boolean; data: Product }>(`${this.apiUrl}/${id}`);
   }
 }

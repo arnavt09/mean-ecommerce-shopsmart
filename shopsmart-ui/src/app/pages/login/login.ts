@@ -15,8 +15,7 @@ export class Login {
   email = '';
   password = '';
   message = '';
-
-  constructor(
+constructor(
     private authService: AuthService,
     private router: Router
   ) {}

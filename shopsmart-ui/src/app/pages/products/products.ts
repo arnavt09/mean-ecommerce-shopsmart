@@ -19,7 +19,7 @@ export class ProductPage implements OnInit {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -28,8 +28,8 @@ export class ProductPage implements OnInit {
 
   loadProducts(): void {
     this.productService.getProducts().subscribe({
-      next: (res: Product[]) => {
-        this.products = res;
+      next: (res) => {
+        this.products = res.data;
       },
       error: () => {
         this.message = 'Failed to load products';
@@ -45,9 +45,7 @@ export class ProductPage implements OnInit {
       return;
     }
 
-    const userId = user._id || user.id;
-
-    this.cartService.addToCart(userId, productId, 1).subscribe({
+    this.cartService.addToCart(user.id, productId, 1).subscribe({
       next: () => {
         this.message = 'Product added to cart';
       },

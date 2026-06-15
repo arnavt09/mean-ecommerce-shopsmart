@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Order } from '../../models/order';
 import { OrderService } from '../../services/order';
 import { AuthService } from '../../services/auth';
-
 @Component({
   selector: 'app-orders',
   standalone: true,
@@ -12,10 +11,9 @@ import { AuthService } from '../../services/auth';
   styleUrl: './orders.css',
 })
 export class OrdersPage implements OnInit {
-  orders: Order[] = [];
-  message = '';
-
-  constructor(
+  orders: any[] = [];
+  message = "";
+constructor(
     private orderService: OrderService,
     private authService: AuthService
   ) {}
